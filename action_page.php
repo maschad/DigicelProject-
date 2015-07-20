@@ -59,6 +59,9 @@ $location = mysql_real_escape_string($_POST['location']);
 $email = mysql_real_escape_string($_POST['email']);
 $contact = mysql_real_escape_string($_POST['contact']);
 
+$sql = "INSERT INTO users(ContactNo,Location,Contact Name, Base Station,Company,Service) values ('$number','$location','$name','$baseStation','$company') ";
+mysql_query($sql);
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);

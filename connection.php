@@ -2,6 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
+$myDB = "contacts"
 
 // Create connection
 $conn = new mysqli($localhost, $username, $password);

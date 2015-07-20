@@ -3,7 +3,7 @@
 include 'connection.php';
 
 // define variables and set to empty values
-$name = $email = $location = $baseStation = $contactNo = "";
+$name = $email = $location = $baseStation = $number= $accountNumber ="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $name = test_input($_POST["name"]);
@@ -53,13 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
-$name = mysql_real_escape_string($_POST['name']);
+$accountNumber = mysql_real_escape_string($_POST['accountNumber']);
+$name = mysql_real_escape_string($_POST['ContactName']);
 $email = mysql_real_escape_string($_POST['email']);
 $location = mysql_real_escape_string($_POST['location']);
-$email = mysql_real_escape_string($_POST['email']);
-$contact = mysql_real_escape_string($_POST['contact']);
+$service = mysql_real_escape_string($_POST['service']);
+$number = mysql_real_escape_string($_POST['contactNo']);
+$baseStation = mysql_real_escape_string($_POST['baseStation']);
 
-$sql = "INSERT INTO users(ContactNo,Location,Contact Name, Base Station,Company,Service) values ('$number','$location','$name','$baseStation','$company') ";
+$sql = "INSERT INTO users(AccountNumber,ContactNo,Location,Contact Name, Base Station,Company,Service) values ('$accountNumber',$number','$location','$name','$baseStation','$company')";
 mysql_query($sql);
 
 function test_input($data) {

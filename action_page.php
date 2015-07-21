@@ -1,6 +1,7 @@
 <?php
 
 include 'connection.php';
+include 'error_script.php';
 
 // define variables and set to empty values
 $name = $email = $location = $baseStation = $number= $accountNumber ="";
@@ -65,10 +66,14 @@ $accountNumber = mysql_real_escape_string($_POST['accountNumber']);
 
 $sql = "INSERT INTO users(AccountNumber,`Base Station`,Company,`Contact Name`,ContactNo,email,Location,Service) values('$accountNumber','$baseStation','$company','$name','$number','$email','$location','$service')";
 
+if (mysql_num_rows($sql) > 0) {
+  $sql = "UPDATE users set `Base Station` = $baseStation ,Company = $company, `Contact Name` = $name, ContactNo = $number, email = $email, Location = $location , Service = $service WHERE AccountNumber = $accountNumber";
+} 
+
 if($conn->query($sql) == TRUE){
   echo "New record created successfully";
 }else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+    customError($mysqli->errno,$mysqli->error);
 }
 
 function test_input($data) {

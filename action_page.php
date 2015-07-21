@@ -63,10 +63,10 @@ $baseStation = mysql_real_escape_string($_POST['baseStation']);
 $company = mysql_real_escape_string($_POST['Company']);
 $accountNumber = mysql_real_escape_string($_POST['accountNumber']);
 
-$sql = "INSERT INTO users(AccountNumber,[Base Station],Company,[Contact Name],ContactNo,email,Location,Service) values ('$accountNumber','$baseStation','$company','$name','$number','$email','$location','$service')";
+$sql = "INSERT INTO users(AccountNumber,`Base Station`,Company,`Contact Name`,ContactNo,email,Location,Service) values('$accountNumber','$baseStation','$company','$name','$number','$email','$location','$service')";
 
 if($conn->query($sql) == TRUE){
-  echo "New record creeated successfully";
+  echo "New record created successfully";
 }else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }

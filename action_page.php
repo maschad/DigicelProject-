@@ -1,7 +1,8 @@
 <?php
 
 include 'connection.php';
-include 'error_script.php';
+require('php_error.php');
+\php_error\reportErrors();
 
 // define variables and set to empty values
 $name = $email = $location = $baseStation = $number= $accountNumber ="";
@@ -55,19 +56,21 @@ if ($_SERVER["REQUEST_METHOD"] == "post") {
   }
 }
 
-$name = mysql_real_escape_string($_POST['ContactName']);
-$email = mysql_real_escape_string($_POST['email']);
-$location = mysql_real_escape_string($_POST['location']);
-$service = mysql_real_escape_string($_POST['service']);
-$number = mysql_real_escape_string($_POST['contactNo']);
-$baseStation = mysql_real_escape_string($_POST['baseStation']);
-$company = mysql_real_escape_string($_POST['Company']);
-$accountNumber = mysql_real_escape_string($_POST['accountNumber']);
+$name = mysqli_real_escape_string($conn,$_POST['ContactName']);
+$email = mysqli_real_escape_string($conn,$_POST['email']);
+$location = mysqli_real_escape_string($conn,$_POST['location']);
+$service = mysqli_real_escape_string($conn,$_POST['service']);
+$number = mysqli_real_escape_string($conn,$_POST['contactNo']);
+$baseStation = mysqli_real_escape_string($conn,$_POST['baseStation']);
+$company = mysqli_real_escape_string($conn,$_POST['Company']);
+$accountNumber = mysqli_real_escape_string($conn,$_POST['accountNumber']);
 
 $sql = "INSERT INTO users(AccountNumber,`Base Station`,Company,`Contact Name`,ContactNo,email,Location,Service) values('$accountNumber','$baseStation','$company','$name','$number','$email','$location','$service')";
+$check = "SELECT * FROM users WHERE AccountNumber = '$accountNumber' ";
+$res = mysqli_query($conn,$check);// Checking query
 
-if (mysql_num_rows($sql) > 0) {
-  $sql = "UPDATE users set `Base Station` = $baseStation ,Company = $company, `Contact Name` = $name, ContactNo = $number, email = $email, Location = $location , Service = $service WHERE AccountNumber = $accountNumber";
+if (mysqli_num_rows($res) > 0) {
+  $sql = "UPDATE users set `Base Station` = '$baseStation', Company = '$company', `Contact Name` = '$name', ContactNo = '$number', email = '$email', Location = '$location' , Service = '$service' WHERE AccountNumber = '$accountNumber' ";
 } 
 
 if($conn->query($sql) == TRUE){
